@@ -23,31 +23,37 @@ sap.ui.define([
 			history.go(-1);
 		},
 
-		onGuardar: function() {
-			var array = this.byId("DP10").getValue();
-			
+		onGuardar: function() {		
 
-			var Periodo = {
-				Periodo: array
-			}
+					
 
-			if (array === "") {
-
-				MessageBox.error("Antes de Guardar debe Ingresar una Fecha");
-
-			} else {
-				this._oDialog = new sap.m.BusyDialog({
-					text: 'Cargando datos...'
-				});
-
-				this._oDialog.open();
+				//this._oDialog.open();
 
 				const epiList = AppJsonModel.getProperty("/epiList")
-				epiList.push(Periodo);
-                
-				Services.postData({
-					Value: "C",
-					EPISet: epiList
+				var obj ={};
+
+                epiList.forEach(function(lista , i) {  
+				
+				 
+				  var Material  = lista.Material,
+				      Centro    = lista.Centro,
+					  PrecioContable2 = lista.Precio_Contable_2,
+					  PrecioFiscal2 =  lista.Precio_Fiscal_2,
+					  PrecioFiscal2bis = lista.Precio_Fis_2,
+					  PrecioValFiscal3 = lista.Precio_Val_Fiscal_3,
+					  PrecioPlan1 = lista.Precio_Plan_1,
+					  FechaPrecioPlan1 = lista.Fecha_PrecioPlan_1,
+					  PrecioPlan2 = lista.Precio_Plan_2,
+					  FechaPrecioPlan2 = lista.Fecha_PrecioPlan_2;
+
+
+					  this.obj.push(Material, Centro, PrecioContable2, PrecioFiscal2, PrecioFiscal2bis, PrecioValFiscal3, PrecioPlan1, FechaPrecioPlan1,
+						PrecioPlan2, FechaPrecioPlan2 );
+
+				});				
+				Services.postData({		
+					Key	: "33",		
+					inputTableSet: obj
 				}).then(aData => {
 					sap.m.MessageToast.show(this.geti18nText("okUpload"))
 				//	AppJsonModel.setProperty("/AjusteBSList", [])
@@ -57,8 +63,8 @@ sap.ui.define([
 					MessageBox.error(this.geti18nText("errorUpload"))
 					this._oDialog.close();
 				})
-			}
-		},
+			},
+
 
 		fnReplaceAjusteBS: function(oTable) {
 
@@ -112,7 +118,7 @@ sap.ui.define([
 					let epiList = AppJsonModel.getProperty("/epiList")
 					epiList = epiList.concat(excelajusteBSRe)
 					AppJsonModel.setProperty("/epiList", epiList)
-					oLabel.setText(that.geti18nText("registros", [epiList.length]));
+					//oLabel.setText(that.geti18nText("registros", [epiList.length]));
 				}
 
 				reader.onerror = function(ex) {
