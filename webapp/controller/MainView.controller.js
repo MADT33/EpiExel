@@ -30,30 +30,27 @@ sap.ui.define([
 				//this._oDialog.open();
 
 				const epiList = AppJsonModel.getProperty("/epiList")
-				var obj ={};
+				var array =[];
 
                 epiList.forEach(function(lista , i) {  
 				
-				 
-				  var Material  = lista.Material,
-				      Centro    = lista.Centro,
-					  PrecioContable2 = lista.Precio_Contable_2,
-					  PrecioFiscal2 =  lista.Precio_Fiscal_2,
-					  PrecioFiscal2bis = lista.Precio_Fis_2,
-					  PrecioValFiscal3 = lista.Precio_Val_Fiscal_3,
-					  PrecioPlan1 = lista.Precio_Plan_1,
-					  FechaPrecioPlan1 = lista.Fecha_PrecioPlan_1,
-					  PrecioPlan2 = lista.Precio_Plan_2,
-					  FechaPrecioPlan2 = lista.Fecha_PrecioPlan_2;
+				var obj ={};
 
-
-					  this.obj.push(Material, Centro, PrecioContable2, PrecioFiscal2, PrecioFiscal2bis, PrecioValFiscal3, PrecioPlan1, FechaPrecioPlan1,
-						PrecioPlan2, FechaPrecioPlan2 );
-
+				   obj.Material  = lista.Material,
+				   obj.Centro    = lista.Centro,
+				   obj.PrecioContable2 = lista.Precio_Contable_2,
+				   obj.PrecioFiscal2 =  lista.Precio_Fiscal_2,
+				   obj.PrecioFiscal2bis = lista.Precio_Fis_2,
+				   obj.PrecioValFiscal3 = lista.Precio_Val_Fiscal_3,
+				   obj.PrecioPlan1 = lista.Precio_Plan_1,
+				   obj.FechaPrecioPlan1 = lista.Fecha_PrecioPlan_1,
+				   obj.PrecioPlan2 = lista.Precio_Plan_2,
+				   obj.FechaPrecioPlan2 = lista.Fecha_PrecioPlan_2;
+					  array.push(obj);
 				});				
 				Services.postData({		
 					Key	: "33",		
-					inputTableSet: obj
+					inputTableSet: array
 				}).then(aData => {
 					sap.m.MessageToast.show(this.geti18nText("okUpload"))
 				//	AppJsonModel.setProperty("/AjusteBSList", [])

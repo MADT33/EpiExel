@@ -6,7 +6,7 @@ sap.ui.define([], function() {
 			if (this._oModel) {
 				return this._oModel;
 			}
-			const sPath = "/sap/opu/odata/sap/ZGW_UPLOAD_FILES_CEBE_SRV";
+			const sPath = "/sap/opu/odata/sap/ZIBMEXEL_SRV ";
 			//builds model
 			this._oModel = new sap.ui.model.odata.ODataModel(sPath, {
 				json: true,
